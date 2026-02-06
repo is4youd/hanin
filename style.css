@@ -23,11 +23,11 @@ body {
     position: fixed;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at center, #ffffff 0.5px, transparent 1px);
+    background: radial-gradient(circle at center, #a7fbf7 2px, transparent 5px);
     background-size: 50px 50px;
     opacity: 0.1;
     z-index: -1;
-    animation: moveStars 100s linear infinite;
+    animation: moveStars 70s linear infinite;
 }
 
 @keyframes moveStars {
