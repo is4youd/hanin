@@ -112,21 +112,31 @@ font-family: 'Amiri';">ك--م جورج وسوف</p>
             </div>
         </div>
     </section>
-    <audio id="myAudio" loop>
-        <source src="jazz.mp3" type="audio/mpeg">
-    </audio>
-    <script>
-        var audio = document.getElementById("myAudio");
+  <audio id="myAudio" src="jazz.mp3" autoplay muted loop></audio>
 
-        // Set volume to 10% (0.1)
-        // 0.0 is silent, 1.0 is full volume
-        audio.volume = 0.4;
-        // This listens for a click anywhere on the page
-        document.addEventListener('click', function () {
-            var audio = document.getElementById("myAudio");
-            audio.play();
-        }, { once: true }); // 'once: true' makes sure it doesn't restart every time you click
-    </script>
+<script>
+    var audio = document.getElementById("myAudio");
+    
+    // Your requested volume (40%)
+    audio.volume = 0.2;
+
+    // This script tries to unmute the audio as soon as the page is ready
+    window.addEventListener('load', function() {
+        audio.play().then(() => {
+            // Some browsers allow unmuting automatically if the user has visited before
+            audio.muted = false;
+        }).catch(error => {
+            console.log("Browser blocked auto-unmute. It will play silently until a click.");
+        });
+    });
+
+    // Back-up: If the browser blocked the sound above, 
+    // it will unmute the second they click anywhere.
+    document.addEventListener('click', function () {
+        audio.muted = false;
+        audio.play();
+    }, { once: true });
+</script>
     <section class="gallery-section">
         <h2 class="section-title">Our Eternity</h2>
         <div class="masonry-gallery" id="image-gallery">
