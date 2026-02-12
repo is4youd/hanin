@@ -112,30 +112,32 @@ font-family: 'Amiri';">ك--م جورج وسوف</p>
             </div>
         </div>
     </section>
-  <audio id="myAudio" src="jazz.mp3" autoplay muted loop></audio>
+<audio id="myAudio" autoplay muted loop>
+    <source src="jazz.mp3" type="audio/mpeg">
+</audio>
 
 <script>
     var audio = document.getElementById("myAudio");
-    
-    // Your requested volume (40%)
-    audio.volume = 0.2;
+    audio.volume = 0.4; // Your volume setting
 
-    // This script tries to unmute the audio as soon as the page is ready
-    window.addEventListener('load', function() {
-        audio.play().then(() => {
-            // Some browsers allow unmuting automatically if the user has visited before
-            audio.muted = false;
-        }).catch(error => {
-            console.log("Browser blocked auto-unmute. It will play silently until a click.");
-        });
-    });
-
-    // Back-up: If the browser blocked the sound above, 
-    // it will unmute the second they click anywhere.
-    document.addEventListener('click', function () {
+    // Function to try unmuting
+    function attemptUnmute() {
         audio.muted = false;
-        audio.play();
-    }, { once: true });
+        audio.play().catch(err => {
+            console.log("Browser is still blocking sound until a click.");
+        });
+    }
+
+    // Try to unmute as soon as the page loads
+    window.onload = function() {
+        attemptUnmute();
+    };
+
+    // If the browser blocked the 'onload' attempt, this will catch it on the first move/click
+    // This is the closest you can get to "Automatic" in 2026 browsers
+    document.addEventListener('mouseover', attemptUnmute, { once: true });
+    document.addEventListener('click', attemptUnmute, { once: true });
+    document.addEventListener('touchstart', attemptUnmute, { once: true });
 </script>
     <section class="gallery-section">
         <h2 class="section-title">Our Eternity</h2>
